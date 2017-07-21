@@ -1,0 +1,64 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<body>
+  <ul id="source">
+    <li>北京空气质量：<b>100</b></li>
+    <li>上海空气质量：<b>70</b></li>
+    <li>天津空气质量：<b>80</b></li>
+    <li>广州空气质量：<b>50</b></li>
+    <li>深圳空气质量：<b>40</b></li>
+    <li>福州空气质量：<b>32</b></li>
+    <li>成都空气质量：<b>90</b></li>
+  </ul>
+  <ul id="resort">
+  </ul>
+  <button id="sort-btn">排序</button>
+  <script>
+  (function () {
+  // 获取ul数据 textContent  
+  var source = document.getElementById("source");
+  var item = source.getElementsByTagName("li");
+  var data= [];
+  for (var i = 0; i < item.length; i++) {
+    data.push(item[i].textContent); 
+  };
+  var arr= [];
+  var arr2=[];
+  //提取出文字和数字 substring
+  for (var i = 0; i < data.length; i++) {
+    var key = data[i].substring(0,6);
+    var value = data[i].substring(7);
+    arr.push(key,value); 
+  };
+  //将城市和数字配对 slice
+  for (var j = 0; j < arr.length; j+=2) {
+    arr2.push(arr.slice(j, j+2));
+  };
+  //通过数字排序  sort
+    arr2.sort(function(a,b){
+      return b[1]-a[1];
+    })
+  //设置点击事件
+  var btn = document.getElementById("sort-btn");
+  btn.onclick = function() {
+    generateList();
+  }
+  //生成新ul列表
+  function generateList(){
+    var list = document.getElementById("resort");
+    for (var i = 0; i < arr2.length; i++) {
+    var oli = document.createElement("li"); 
+    oli.innerHTML= "第" + (i+1) + "名:" + arr2[i];
+    list.appendChild(oli); 
+  }
+  //禁用按钮
+  btn.disabled = true;
+  }
+  })();
+  </script>
+</body>
+</html>
